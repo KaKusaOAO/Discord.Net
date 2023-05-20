@@ -92,6 +92,8 @@ namespace Discord.Rest
                 Username = model.Username.Value;
             if (model.PublicFlags.IsSpecified)
                 PublicFlags = model.PublicFlags.Value;
+
+            GlobalName = model.GlobalName;
         }
 
         /// <inheritdoc />
@@ -110,6 +112,7 @@ namespace Discord.Rest
         /// </returns>
         public Task<RestDMChannel> CreateDMChannelAsync(RequestOptions options = null)
             => UserHelper.CreateDMChannelAsync(this, Discord, options);
+        public Optional<string> GlobalName { get; internal set; }
 
         /// <inheritdoc />
         public string GetAvatarUrl(ImageFormat format = ImageFormat.Auto, ushort size = 128)

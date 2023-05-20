@@ -44,6 +44,9 @@ namespace Discord.WebSocket
         public IReadOnlyCollection<ClientType> ActiveClients => Presence.ActiveClients ?? ImmutableHashSet<ClientType>.Empty;
         /// <inheritdoc />
         public IReadOnlyCollection<IActivity> Activities => Presence.Activities ?? ImmutableList<IActivity>.Empty;
+
+        public Optional<string> GlobalName { get; internal set; }
+
         /// <summary>
         ///     Gets mutual guilds shared with this user.
         /// </summary>
@@ -90,6 +93,14 @@ namespace Discord.WebSocket
                 PublicFlags = model.PublicFlags.Value;
                 hasChanges = true;
             }
+
+            if (model.GlobalName.GetValueOrDefault() != GlobalName.GetValueOrDefault())
+            {
+                GlobalName = model.GlobalName;
+                hasChanges = true;
+            }
+
+
             return hasChanges;
         }
 

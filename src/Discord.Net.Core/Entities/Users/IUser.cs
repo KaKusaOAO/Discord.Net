@@ -112,5 +112,7 @@ namespace Discord
         ///     contains the DM channel associated with this user.
         /// </returns>
         Task<IDMChannel> CreateDMChannelAsync(RequestOptions options = null);
+
+        public Optional<string> GlobalName { get; }
     }
 }

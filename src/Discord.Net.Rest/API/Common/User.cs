@@ -19,6 +19,11 @@ namespace Discord.API
         [JsonProperty("accent_color")]
         public Optional<uint?> AccentColor { get; set; }
 
+        // @start - API update temp change
+        [JsonProperty("global_name")]
+        public Optional<string> GlobalName { get; set; }
+        // @end - API update temp change
+
         //CurrentUser
         [JsonProperty("verified")]
         public Optional<bool> Verified { get; set; }
