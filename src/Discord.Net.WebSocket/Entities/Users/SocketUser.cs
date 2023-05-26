@@ -23,6 +23,7 @@ namespace Discord.WebSocket
         public abstract string Username { get; internal set; }
         /// <inheritdoc />
         public abstract ushort DiscriminatorValue { get; internal set; }
+        public bool IsSingleZeroDiscriminator { get; internal set; }
         /// <inheritdoc />
         public abstract string AvatarId { get; internal set; }
         /// <inheritdoc />
@@ -71,11 +72,36 @@ namespace Discord.WebSocket
             }
             if (model.Discriminator.IsSpecified)
             {
-                var newVal = ushort.Parse(model.Discriminator.Value, NumberStyles.None, CultureInfo.InvariantCulture);
-                if (newVal != DiscriminatorValue)
+                if (model.Discriminator.Value == "0")
                 {
-                    DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None, CultureInfo.InvariantCulture);
-                    hasChanges = true;
+                    if (DiscriminatorValue != 0)
+                    {
+                        DiscriminatorValue = 0;
+                        hasChanges = true;
+                    }
+
+                    if (!IsSingleZeroDiscriminator)
+                    {
+                        IsSingleZeroDiscriminator = true;
+                        hasChanges = true;
+                    }
+                }
+                else
+                {
+                    if (IsSingleZeroDiscriminator)
+                    {
+                        IsSingleZeroDiscriminator = false;
+                        hasChanges = true;
+                    }
+
+                    var newVal = ushort.Parse(model.Discriminator.Value, NumberStyles.None,
+                        CultureInfo.InvariantCulture);
+                    if (newVal != DiscriminatorValue)
+                    {
+                        DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None,
+                            CultureInfo.InvariantCulture);
+                        hasChanges = true;
+                    }
                 }
             }
             if (model.Bot.IsSpecified && model.Bot.Value != IsBot)

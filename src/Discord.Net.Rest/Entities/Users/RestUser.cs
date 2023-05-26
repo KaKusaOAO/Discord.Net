@@ -35,6 +35,9 @@ namespace Discord.Rest
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
         public string Discriminator => DiscriminatorValue.ToString("D4");
+
+        public bool IsSingleZeroDiscriminator { get; internal set; }
+
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
         /// <inheritdoc />
@@ -85,7 +88,11 @@ namespace Discord.Rest
             if (model.AccentColor.IsSpecified)
                 AccentColor = model.AccentColor.Value;
             if (model.Discriminator.IsSpecified)
-                DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None, CultureInfo.InvariantCulture);
+            {
+                IsSingleZeroDiscriminator = model.Discriminator.Value == "0";
+                DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None,
+                    CultureInfo.InvariantCulture);
+            }
             if (model.Bot.IsSpecified)
                 IsBot = model.Bot.Value;
             if (model.Username.IsSpecified)

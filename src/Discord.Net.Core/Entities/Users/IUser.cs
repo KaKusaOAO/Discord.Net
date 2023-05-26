@@ -50,6 +50,7 @@ namespace Discord
         ///     Gets the per-username unique ID for this user.
         /// </summary>
         string Discriminator { get; }
+        bool IsSingleZeroDiscriminator { get; }
         /// <summary>
         ///     Gets the per-username unique ID for this user.
         /// </summary>
