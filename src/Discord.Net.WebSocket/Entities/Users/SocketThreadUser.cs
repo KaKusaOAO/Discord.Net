@@ -71,6 +71,11 @@ namespace Discord.WebSocket
             internal set => GlobalUser.RawDiscriminator = value;
         }
 
+        public override Optional<string> GlobalName {
+            get => GlobalUser.GlobalName;
+            internal set => GlobalUser.GlobalName = value;
+        }
+
         /// <inheritdoc/>
         public override bool IsBot
         {

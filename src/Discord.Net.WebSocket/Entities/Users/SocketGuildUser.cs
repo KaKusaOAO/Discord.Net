@@ -51,6 +51,11 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public override string AvatarId { get { return GlobalUser.AvatarId; } internal set { GlobalUser.AvatarId = value; } }
 
+        public override Optional<string> GlobalName {
+            get => GlobalUser.GlobalName;
+            internal set => GlobalUser.GlobalName = value;
+        }
+        
         /// <inheritdoc />
         public GuildPermissions GuildPermissions => new GuildPermissions(Permissions.ResolveGuild(Guild, this));
         internal override SocketPresence Presence { get; set; }

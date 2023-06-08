@@ -37,6 +37,11 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         internal override SocketPresence Presence { get { return GlobalUser.Presence; } set { GlobalUser.Presence = value; } }
 
+        public override Optional<string> GlobalName {
+            get => GlobalUser.GlobalName;
+            internal set => GlobalUser.GlobalName = value;
+        }
+
         /// <inheritdoc />
         public override bool IsWebhook => false;
 

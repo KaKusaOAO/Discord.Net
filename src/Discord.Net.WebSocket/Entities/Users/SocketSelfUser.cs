@@ -34,6 +34,12 @@ namespace Discord.WebSocket
         public override string AvatarId { get { return GlobalUser.AvatarId; } internal set { GlobalUser.AvatarId = value; } }
         /// <inheritdoc />
         internal override SocketPresence Presence { get { return GlobalUser.Presence; } set { GlobalUser.Presence = value; } }
+
+        public override Optional<string> GlobalName {
+            get => GlobalUser.GlobalName;
+            internal set => GlobalUser.GlobalName = value;
+        }
+
         /// <inheritdoc />
         public UserProperties Flags { get; internal set; }
         /// <inheritdoc />

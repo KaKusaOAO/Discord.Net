@@ -52,7 +52,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public IReadOnlyCollection<IActivity> Activities => Presence.Activities ?? ImmutableList<IActivity>.Empty;
 
-        public Optional<string> GlobalName { get; internal set; }
+        public abstract Optional<string> GlobalName { get; internal set; }
 
         /// <summary>
         ///     Gets mutual guilds shared with this user.
