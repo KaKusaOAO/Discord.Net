@@ -20,8 +20,14 @@ namespace Discord.Rest
         public bool IsBot { get; private set; }
         /// <inheritdoc />
         public string Username { get; private set; }
+
+        public Optional<string> RawDiscriminator { get; private set; }
+
         /// <inheritdoc />
-        public ushort DiscriminatorValue { get; private set; }
+        public ushort DiscriminatorValue => RawDiscriminator.IsSpecified
+            ? ushort.Parse(RawDiscriminator.Value, CultureInfo.InvariantCulture)
+            : (ushort) 10000;
+
         /// <inheritdoc />
         public string AvatarId { get; private set; }
         /// <inheritdoc />
@@ -34,9 +40,8 @@ namespace Discord.Rest
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
-        public string Discriminator => DiscriminatorValue.ToString("D4");
-
-        public bool IsSingleZeroDiscriminator { get; internal set; }
+        public string Discriminator => RawDiscriminator.IsSpecified ?
+            RawDiscriminator.Value : "";
 
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
@@ -87,12 +92,9 @@ namespace Discord.Rest
                 BannerId = model.Banner.Value;
             if (model.AccentColor.IsSpecified)
                 AccentColor = model.AccentColor.Value;
-            if (model.Discriminator.IsSpecified)
-            {
-                IsSingleZeroDiscriminator = model.Discriminator.Value == "0";
-                DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None,
-                    CultureInfo.InvariantCulture);
-            }
+
+            RawDiscriminator = model.Discriminator;
+
             if (model.Bot.IsSpecified)
                 IsBot = model.Bot.Value;
             if (model.Username.IsSpecified)

@@ -10,8 +10,8 @@ namespace Discord.WebSocket
     {
         public override bool IsBot { get; internal set; }
         public override string Username { get; internal set; }
-        public override ushort DiscriminatorValue { get; internal set; }
         public override string AvatarId { get; internal set; }
+        public override Optional<string> RawDiscriminator { get; internal set; }
         internal override SocketPresence Presence { get; set; }
 
         public override bool IsWebhook => false;

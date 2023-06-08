@@ -46,11 +46,11 @@ namespace Discord
         ///     A string representing the user's avatar URL.
         /// </returns>
         string GetDefaultAvatarUrl();
+        Optional<string> RawDiscriminator { get; }
         /// <summary>
         ///     Gets the per-username unique ID for this user.
         /// </summary>
         string Discriminator { get; }
-        bool IsSingleZeroDiscriminator { get; }
         /// <summary>
         ///     Gets the per-username unique ID for this user.
         /// </summary>

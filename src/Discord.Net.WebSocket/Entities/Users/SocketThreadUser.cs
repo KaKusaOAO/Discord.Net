@@ -31,7 +31,7 @@ namespace Discord.WebSocket
 
         /// <inheritdoc/>
         public string DisplayName
-            => GuildUser.Nickname ?? GuildUser.Username;
+            => GuildUser.Nickname ?? GuildUser.GlobalName.GetValueOrDefault(GuildUser.Username);
 
         /// <inheritdoc/>
         public string Nickname
@@ -65,11 +65,10 @@ namespace Discord.WebSocket
         public string GuildAvatarId
             => GuildUser.GuildAvatarId;
 
-        /// <inheritdoc/>
-        public override ushort DiscriminatorValue
-        {
-            get => GuildUser.DiscriminatorValue;
-            internal set => GuildUser.DiscriminatorValue = value;
+        /// <inheritdoc />
+        public override Optional<string> RawDiscriminator {
+            get => GlobalUser.RawDiscriminator;
+            internal set => GlobalUser.RawDiscriminator = value;
         }
 
         /// <inheritdoc/>

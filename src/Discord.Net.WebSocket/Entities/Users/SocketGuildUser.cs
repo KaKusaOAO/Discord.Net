@@ -30,7 +30,7 @@ namespace Discord.WebSocket
         /// </summary>
         public SocketGuild Guild { get; }
         /// <inheritdoc />
-        public string DisplayName => Nickname ?? Username;
+        public string DisplayName => Nickname ?? GlobalName.GetValueOrDefault(Username);
         /// <inheritdoc />
         public string Nickname { get; private set; }
         /// <inheritdoc/>
@@ -41,8 +41,13 @@ namespace Discord.WebSocket
         public override bool IsBot { get { return GlobalUser.IsBot; } internal set { GlobalUser.IsBot = value; } }
         /// <inheritdoc />
         public override string Username { get { return GlobalUser.Username; } internal set { GlobalUser.Username = value; } }
+
         /// <inheritdoc />
-        public override ushort DiscriminatorValue { get { return GlobalUser.DiscriminatorValue; } internal set { GlobalUser.DiscriminatorValue = value; } }
+        public override Optional<string> RawDiscriminator {
+            get => GlobalUser.RawDiscriminator;
+            internal set => GlobalUser.RawDiscriminator = value;
+        }
+
         /// <inheritdoc />
         public override string AvatarId { get { return GlobalUser.AvatarId; } internal set { GlobalUser.AvatarId = value; } }
 

@@ -15,8 +15,10 @@ namespace Discord.WebSocket
     {
         /// <inheritdoc />
         public override string Username { get; internal set; }
+
         /// <inheritdoc />
-        public override ushort DiscriminatorValue { get; internal set; }
+        public override Optional<string> RawDiscriminator { get; internal set; }
+
         /// <inheritdoc />
         public override string AvatarId { get; internal set; }
 

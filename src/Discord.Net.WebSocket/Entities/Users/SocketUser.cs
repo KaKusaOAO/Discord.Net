@@ -21,8 +21,13 @@ namespace Discord.WebSocket
         public abstract bool IsBot { get; internal set; }
         /// <inheritdoc />
         public abstract string Username { get; internal set; }
+
+        public abstract Optional<string> RawDiscriminator { get; internal set; }
+
         /// <inheritdoc />
-        public abstract ushort DiscriminatorValue { get; internal set; }
+        public ushort DiscriminatorValue => RawDiscriminator.IsSpecified
+            ? ushort.Parse(RawDiscriminator.Value, CultureInfo.InvariantCulture)
+            : (ushort) 10000;
         public bool IsSingleZeroDiscriminator { get; internal set; }
         /// <inheritdoc />
         public abstract string AvatarId { get; internal set; }
@@ -36,7 +41,8 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
-        public string Discriminator => DiscriminatorValue.ToString("D4");
+        public string Discriminator => RawDiscriminator.IsSpecified ?
+            RawDiscriminator.Value : "";
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
         /// <inheritdoc />
@@ -70,40 +76,13 @@ namespace Discord.WebSocket
                 AvatarId = model.Avatar.Value;
                 hasChanges = true;
             }
-            if (model.Discriminator.IsSpecified)
+
+            if (model.Discriminator.GetValueOrDefault() != RawDiscriminator.GetValueOrDefault())
             {
-                if (model.Discriminator.Value == "0")
-                {
-                    if (DiscriminatorValue != 0)
-                    {
-                        DiscriminatorValue = 0;
-                        hasChanges = true;
-                    }
-
-                    if (!IsSingleZeroDiscriminator)
-                    {
-                        IsSingleZeroDiscriminator = true;
-                        hasChanges = true;
-                    }
-                }
-                else
-                {
-                    if (IsSingleZeroDiscriminator)
-                    {
-                        IsSingleZeroDiscriminator = false;
-                        hasChanges = true;
-                    }
-
-                    var newVal = ushort.Parse(model.Discriminator.Value, NumberStyles.None,
-                        CultureInfo.InvariantCulture);
-                    if (newVal != DiscriminatorValue)
-                    {
-                        DiscriminatorValue = ushort.Parse(model.Discriminator.Value, NumberStyles.None,
-                            CultureInfo.InvariantCulture);
-                        hasChanges = true;
-                    }
-                }
+                RawDiscriminator = model.Discriminator;
+                hasChanges = true;
             }
+
             if (model.Bot.IsSpecified && model.Bot.Value != IsBot)
             {
                 IsBot = model.Bot.Value;
