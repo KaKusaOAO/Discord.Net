@@ -66,9 +66,9 @@ namespace Discord.WebSocket
             => GuildUser.GuildAvatarId;
 
         /// <inheritdoc />
-        public override string RawDiscriminator {
-            get => GlobalUser.RawDiscriminator;
-            internal set => GlobalUser.RawDiscriminator = value;
+        public override string Discriminator {
+            get => GlobalUser.Discriminator;
+            internal set => GlobalUser.Discriminator = value;
         }
 
         public override string GlobalName {

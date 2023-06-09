@@ -26,9 +26,9 @@ namespace Discord.WebSocket
         public override string Username { get { return GlobalUser.Username; } internal set { GlobalUser.Username = value; } }
 
         /// <inheritdoc />
-        public override string RawDiscriminator {
-            get => GlobalUser.RawDiscriminator;
-            internal set => GlobalUser.RawDiscriminator = value;
+        public override string Discriminator {
+            get => GlobalUser.Discriminator;
+            internal set => GlobalUser.Discriminator = value;
         }
         /// <inheritdoc />
         public override string AvatarId { get { return GlobalUser.AvatarId; } internal set { GlobalUser.AvatarId = value; } }

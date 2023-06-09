@@ -21,15 +21,12 @@ namespace Discord.WebSocket
         public abstract bool IsBot { get; internal set; }
         /// <inheritdoc />
         public abstract string Username { get; internal set; }
-
-        public abstract string RawDiscriminator { get; internal set; }
         public virtual string DisplayName => GlobalName ?? Username;
 
         /// <inheritdoc />
-        public ushort DiscriminatorValue => RawDiscriminator != null
-            ? ushort.Parse(RawDiscriminator, CultureInfo.InvariantCulture)
+        public ushort DiscriminatorValue => Discriminator != null
+            ? ushort.Parse(Discriminator, CultureInfo.InvariantCulture)
             : (ushort) 10000;
-        public bool IsSingleZeroDiscriminator { get; internal set; }
         /// <inheritdoc />
         public abstract string AvatarId { get; internal set; }
         /// <inheritdoc />
@@ -42,7 +39,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
-        public string Discriminator => RawDiscriminator ?? "";
+        public abstract string Discriminator { get; internal set; }
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
         /// <inheritdoc />
@@ -77,9 +74,9 @@ namespace Discord.WebSocket
                 hasChanges = true;
             }
 
-            if (model.Discriminator.IsSpecified && model.Discriminator.Value != RawDiscriminator)
+            if (model.Discriminator.IsSpecified && model.Discriminator.Value != Discriminator)
             {
-                RawDiscriminator = model.Discriminator.Value;
+                Discriminator = model.Discriminator.Value;
                 hasChanges = true;
             }
 

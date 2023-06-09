@@ -21,13 +21,11 @@ namespace Discord.Rest
         /// <inheritdoc />
         public string Username { get; private set; }
 
-        public string RawDiscriminator { get; private set; }
-
         public virtual string DisplayName => GlobalName ?? Username;
 
         /// <inheritdoc />
-        public ushort DiscriminatorValue => RawDiscriminator != null
-            ? ushort.Parse(RawDiscriminator, CultureInfo.InvariantCulture)
+        public ushort DiscriminatorValue => Discriminator != null
+            ? ushort.Parse(Discriminator, CultureInfo.InvariantCulture)
             : (ushort) 10000;
 
         /// <inheritdoc />
@@ -42,7 +40,7 @@ namespace Discord.Rest
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
-        public string Discriminator => RawDiscriminator ?? "";
+        public string Discriminator { get; private set; }
 
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
@@ -94,7 +92,7 @@ namespace Discord.Rest
             if (model.AccentColor.IsSpecified)
                 AccentColor = model.AccentColor.Value;
             if (model.Discriminator.IsSpecified)
-                RawDiscriminator = model.Discriminator.Value;
+                Discriminator = model.Discriminator.Value;
             if (model.Bot.IsSpecified)
                 IsBot = model.Bot.Value;
             if (model.Username.IsSpecified)
