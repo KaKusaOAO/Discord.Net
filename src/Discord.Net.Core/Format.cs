@@ -8,7 +8,8 @@ namespace Discord
     {
         // Characters which need escaping
         private static readonly string[] SensitiveCharacters = {
-            "\\", "*", "_", "~", "`", ".", ":", "/", ">", "|" };
+            "\\", "*", "_", "~", "`", ".", ":", "/", ">", "|", "-", "#"
+        };
 
         /// <summary> Returns a markdown-formatted string with bold formatting. </summary>
         public static string Bold(string text) => $"**{text}**";
