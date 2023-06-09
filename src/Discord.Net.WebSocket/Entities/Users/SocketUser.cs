@@ -26,7 +26,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public ushort DiscriminatorValue => Discriminator != null
             ? ushort.Parse(Discriminator, CultureInfo.InvariantCulture)
-            : (ushort) 10000;
+            : throw new InvalidOperationException("Discriminator is unavailable");
         /// <inheritdoc />
         public abstract string AvatarId { get; internal set; }
         /// <inheritdoc />

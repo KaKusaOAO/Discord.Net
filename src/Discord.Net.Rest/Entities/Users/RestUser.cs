@@ -26,7 +26,7 @@ namespace Discord.Rest
         /// <inheritdoc />
         public ushort DiscriminatorValue => Discriminator != null
             ? ushort.Parse(Discriminator, CultureInfo.InvariantCulture)
-            : (ushort) 10000;
+            : throw new InvalidOperationException("Discriminator is unavailable");
 
         /// <inheritdoc />
         public string AvatarId { get; private set; }
