@@ -80,7 +80,7 @@ namespace Discord
         ///     A URL pointing to the user's default avatar when one isn't set.
         /// </returns>
         /// <remarks>
-        /// The unique username system removes the discriminator, so this will be unused in the future.
+        ///     The unique username system removes the discriminator, so this will be unused in the future.
         /// </remarks>
         public static string GetDefaultUserAvatarUrl(ushort discriminator)
         {
