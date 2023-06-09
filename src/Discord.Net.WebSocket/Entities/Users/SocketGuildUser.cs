@@ -30,7 +30,7 @@ namespace Discord.WebSocket
         /// </summary>
         public SocketGuild Guild { get; }
         /// <inheritdoc />
-        public string DisplayName => Nickname ?? GlobalName.GetValueOrDefault(Username);
+        public override string DisplayName => Nickname ?? GlobalName.GetValueOrDefault(Username);
         /// <inheritdoc />
         public string Nickname { get; private set; }
         /// <inheritdoc/>
@@ -55,7 +55,7 @@ namespace Discord.WebSocket
             get => GlobalUser.GlobalName;
             internal set => GlobalUser.GlobalName = value;
         }
-        
+
         /// <inheritdoc />
         public GuildPermissions GuildPermissions => new GuildPermissions(Permissions.ResolveGuild(Guild, this));
         internal override SocketPresence Presence { get; set; }
@@ -275,7 +275,7 @@ namespace Discord.WebSocket
         public string GetGuildAvatarUrl(ImageFormat format = ImageFormat.Auto, ushort size = 128)
             => CDN.GetGuildUserAvatarUrl(Id, Guild.Id, GuildAvatarId, size, format);
 
-        private string DebuggerDisplay => $"{Username}#{Discriminator} ({Id}{(IsBot ? ", Bot" : "")}, Guild)";
+        private string DebuggerDisplay => $"{Format.UsernameAndDiscriminator(this, Discord.FormatUsersInBidirectionalUnicode)} ({Id}{(IsBot ? ", Bot" : "")}, Guild)";
 
         internal new SocketGuildUser Clone()
         {

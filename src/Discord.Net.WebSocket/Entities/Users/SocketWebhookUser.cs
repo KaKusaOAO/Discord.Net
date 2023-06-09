@@ -52,7 +52,7 @@ namespace Discord.WebSocket
             return entity;
         }
 
-        private string DebuggerDisplay => $"{Username}#{Discriminator} ({Id}{(IsBot ? ", Bot" : "")}, Webhook)";
+        private string DebuggerDisplay => $"{Format.UsernameAndDiscriminator(this, Discord.FormatUsersInBidirectionalUnicode)} ({Id}{(IsBot ? ", Bot" : "")}, Webhook)";
         internal new SocketWebhookUser Clone() => MemberwiseClone() as SocketWebhookUser;
         #endregion
 
@@ -66,7 +66,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         DateTimeOffset? IGuildUser.JoinedAt => null;
         /// <inheritdoc />
-        string IGuildUser.DisplayName => null;
+        string IUser.DisplayName => null;
         /// <inheritdoc />
         string IGuildUser.Nickname => null;
         /// <inheritdoc />

@@ -20,7 +20,7 @@ namespace Discord.Rest
         private long? _joinedAtTicks;
         private ImmutableArray<ulong> _roleIds;
         /// <inheritdoc />
-        public string DisplayName => Nickname ?? Username;
+        public override string DisplayName => Nickname ?? GlobalName.GetValueOrDefault(Username);
         /// <inheritdoc />
         public string Nickname { get; private set; }
         /// <inheritdoc/>

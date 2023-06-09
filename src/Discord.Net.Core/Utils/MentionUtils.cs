@@ -178,26 +178,31 @@ namespace Discord
             {
                 var user = tag.Value as IUser;
                 var guildUser = user as IGuildUser;
+
+                string ResolveName(IUser target) => target.HasLegacyUsername()
+                    ? guildUser?.Nickname ?? target?.Username
+                    : target?.DisplayName;
+
                 switch (mode)
                 {
                     case TagHandling.Name:
                         if (user != null)
-                            return $"@{guildUser?.Nickname ?? user?.Username}";
+                            return $"@{ResolveName(user)}";
                         else
                             return "";
                     case TagHandling.NameNoPrefix:
                         if (user != null)
-                            return $"{guildUser?.Nickname ?? user?.Username}";
+                            return $"{ResolveName(user)}";
                         else
                             return "";
                     case TagHandling.FullName:
                         if (user != null)
-                            return $"@{user.Username}#{user.Discriminator}";
+                            return $"@{Format.UsernameAndDiscriminator(user, false)}";
                         else
                             return "";
                     case TagHandling.FullNameNoPrefix:
                         if (user != null)
-                            return $"{user.Username}#{user.Discriminator}";
+                            return $"{Format.UsernameAndDiscriminator(user, false)}";
                         else
                             return "";
                     case TagHandling.Sanitize:

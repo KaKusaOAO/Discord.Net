@@ -79,9 +79,23 @@ namespace Discord
         /// <returns>
         ///     A URL pointing to the user's default avatar when one isn't set.
         /// </returns>
+        /// <remarks>
+        /// The unique username system removes the discriminator, so this will be unused in the future.
+        /// </remarks>
         public static string GetDefaultUserAvatarUrl(ushort discriminator)
         {
             return $"{DiscordConfig.CDNUrl}embed/avatars/{discriminator % 5}.png";
+        }
+        /// <summary>
+        ///     Returns the default user avatar URL.
+        /// </summary>
+        /// <param name="id">The ID of a user.</param>
+        /// <returns>
+        ///     A URL pointing to the user's default avatar when one isn't set.
+        /// </returns>
+        public static string GetDefaultUserAvatarUrl(ulong id)
+        {
+            return $"{DiscordConfig.CDNUrl}embed/avatars/{(id >> 22) % 6}.png";
         }
         /// <summary>
         ///     Returns an icon URL.

@@ -13,17 +13,11 @@ namespace Discord
         ///     Gets when this user joined the guild.
         /// </summary>
         /// <returns>
-        ///     A <see cref="DateTimeOffset"/> representing the time of which the user has joined the guild; 
+        ///     A <see cref="DateTimeOffset"/> representing the time of which the user has joined the guild;
         ///     <c>null</c> when it cannot be obtained.
         /// </returns>
         DateTimeOffset? JoinedAt { get; }
-        /// <summary>
-        ///     Gets the displayed name for this user.
-        /// </summary>
-        /// <returns>
-        ///     A string representing the display name of the user; If the nickname is null, this will be the username.
-        /// </returns>
-        string DisplayName { get; }
+
         /// <summary>
         ///     Gets the nickname for this user.
         /// </summary>

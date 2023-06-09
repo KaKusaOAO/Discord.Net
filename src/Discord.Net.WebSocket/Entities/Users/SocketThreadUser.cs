@@ -30,8 +30,8 @@ namespace Discord.WebSocket
             => GuildUser.JoinedAt;
 
         /// <inheritdoc/>
-        public string DisplayName
-            => GuildUser.Nickname ?? GuildUser.GlobalName.GetValueOrDefault(GuildUser.Username);
+        public override string DisplayName
+            => GuildUser.DisplayName;
 
         /// <inheritdoc/>
         public string Nickname

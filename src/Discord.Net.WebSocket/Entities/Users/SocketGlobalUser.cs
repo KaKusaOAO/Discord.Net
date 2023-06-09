@@ -49,7 +49,7 @@ namespace Discord.WebSocket
             }
         }
 
-        private string DebuggerDisplay => $"{Username}#{Discriminator} ({Id}{(IsBot ? ", Bot" : "")}, Global)";
+        private string DebuggerDisplay => $"{Format.UsernameAndDiscriminator(this, Discord.FormatUsersInBidirectionalUnicode)} ({Id}{(IsBot ? ", Bot" : "")}, Global)";
         internal new SocketGlobalUser Clone() => MemberwiseClone() as SocketGlobalUser;
     }
 }

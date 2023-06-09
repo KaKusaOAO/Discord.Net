@@ -115,9 +115,10 @@ namespace Discord
         /// <returns>The username + discriminator</returns>
         public static string UsernameAndDiscriminator(IUser user, bool doBidirectional)
         {
+            var suffix = user.HasLegacyUsername() ? $"#{user.Discriminator}" : "";
             return doBidirectional
-                ? $"\u2066{user.Username}\u2069#{user.Discriminator}"
-                : $"{user.Username}#{user.Discriminator}";
+                ? $"\u2066{user.Username}\u2069{suffix}"
+                : $"{user.Username}{suffix}";
         }
     }
 }

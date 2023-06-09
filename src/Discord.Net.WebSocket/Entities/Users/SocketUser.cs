@@ -23,6 +23,7 @@ namespace Discord.WebSocket
         public abstract string Username { get; internal set; }
 
         public abstract Optional<string> RawDiscriminator { get; internal set; }
+        public virtual string DisplayName => GlobalName.GetValueOrDefault(Username);
 
         /// <inheritdoc />
         public ushort DiscriminatorValue => RawDiscriminator.IsSpecified
@@ -125,7 +126,9 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         public string GetDefaultAvatarUrl()
-            => CDN.GetDefaultUserAvatarUrl(DiscriminatorValue);
+            => this.HasLegacyUsername()
+                ? CDN.GetDefaultUserAvatarUrl(DiscriminatorValue)
+                : CDN.GetDefaultUserAvatarUrl(Id);
 
         /// <summary>
         ///     Gets the full name of the user (e.g. Example#0001).

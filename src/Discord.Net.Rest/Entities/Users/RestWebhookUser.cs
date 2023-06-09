@@ -52,7 +52,7 @@ namespace Discord.Rest
         /// <inheritdoc />
         DateTimeOffset? IGuildUser.JoinedAt => null;
         /// <inheritdoc />
-        string IGuildUser.DisplayName => null;
+        string IUser.DisplayName => null;
         /// <inheritdoc />
         string IGuildUser.Nickname => null;
         /// <inheritdoc/>

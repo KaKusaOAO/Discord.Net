@@ -199,6 +199,7 @@ namespace Discord.Rest
                         User = new API.User
                         {
                             Username = command.User.Username,
+                            GlobalName = command.User.GlobalName,
                             Avatar = command.User.AvatarId,
                             Bot = command.User.IsBot,
                             Discriminator = command.User.Discriminator,

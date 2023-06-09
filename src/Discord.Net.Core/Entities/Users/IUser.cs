@@ -114,6 +114,15 @@ namespace Discord
         /// </returns>
         Task<IDMChannel> CreateDMChannelAsync(RequestOptions options = null);
 
+        /// <summary>
+        ///     Gets the displayed name for this user.
+        /// </summary>
+        /// <returns>
+        ///     A string representing the display name of the user; If the nickname is null or not a guild user,
+        ///     this will be the global name, or the username if the global name is unset.
+        /// </returns>
+        string DisplayName { get; }
+
         public Optional<string> GlobalName { get; }
     }
 }

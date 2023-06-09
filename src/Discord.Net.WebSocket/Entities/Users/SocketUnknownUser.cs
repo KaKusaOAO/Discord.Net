@@ -45,7 +45,7 @@ namespace Discord.WebSocket
             return entity;
         }
 
-        private string DebuggerDisplay => $"{Username}#{Discriminator} ({Id}{(IsBot ? ", Bot" : "")}, Unknown)";
+        private string DebuggerDisplay => $"{Format.UsernameAndDiscriminator(this, Discord.FormatUsersInBidirectionalUnicode)} ({Id}{(IsBot ? ", Bot" : "")}, Unknown)";
         internal new SocketUnknownUser Clone() => MemberwiseClone() as SocketUnknownUser;
     }
 }

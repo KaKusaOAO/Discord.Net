@@ -23,6 +23,9 @@ namespace Discord.Rest
 
         public Optional<string> RawDiscriminator { get; private set; }
 
+        public virtual string DisplayName =>
+            GlobalName.GetValueOrDefault(Username);
+
         /// <inheritdoc />
         public ushort DiscriminatorValue => RawDiscriminator.IsSpecified
             ? ushort.Parse(RawDiscriminator.Value, CultureInfo.InvariantCulture)
@@ -128,12 +131,14 @@ namespace Discord.Rest
             => CDN.GetUserAvatarUrl(Id, AvatarId, size, format);
 
         /// <inheritdoc />
-        public string GetBannerUrl(ImageFormat format = ImageFormat.Auto, ushort size = 256)
+        public string GetBannerUrl(ImageFormat format = ImageFormat.Auto, ushort size = 480)
             => CDN.GetUserBannerUrl(Id, BannerId, size, format);
 
         /// <inheritdoc />
         public string GetDefaultAvatarUrl()
-            => CDN.GetDefaultUserAvatarUrl(DiscriminatorValue);
+            => this.HasLegacyUsername() ?
+                CDN.GetDefaultUserAvatarUrl(DiscriminatorValue) :
+                CDN.GetDefaultUserAvatarUrl(Id);
 
         /// <summary>
         ///     Gets the Username#Discriminator of the user.
