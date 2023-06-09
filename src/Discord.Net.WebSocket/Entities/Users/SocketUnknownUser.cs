@@ -17,8 +17,8 @@ namespace Discord.WebSocket
         public override string Username { get; internal set; }
 
         /// <inheritdoc />
-        public override Optional<string> RawDiscriminator { get; internal set; }
-        public override Optional<string> GlobalName { get; internal set; }
+        public override string RawDiscriminator { get; internal set; }
+        public override string GlobalName { get; internal set; }
 
         /// <inheritdoc />
         public override string AvatarId { get; internal set; }

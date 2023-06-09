@@ -22,12 +22,12 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public abstract string Username { get; internal set; }
 
-        public abstract Optional<string> RawDiscriminator { get; internal set; }
-        public virtual string DisplayName => GlobalName.GetValueOrDefault(Username);
+        public abstract string RawDiscriminator { get; internal set; }
+        public virtual string DisplayName => GlobalName ?? Username;
 
         /// <inheritdoc />
-        public ushort DiscriminatorValue => RawDiscriminator.IsSpecified
-            ? ushort.Parse(RawDiscriminator.Value, CultureInfo.InvariantCulture)
+        public ushort DiscriminatorValue => RawDiscriminator != null
+            ? ushort.Parse(RawDiscriminator, CultureInfo.InvariantCulture)
             : (ushort) 10000;
         public bool IsSingleZeroDiscriminator { get; internal set; }
         /// <inheritdoc />
@@ -42,8 +42,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
-        public string Discriminator => RawDiscriminator.IsSpecified ?
-            RawDiscriminator.Value : "";
+        public string Discriminator => RawDiscriminator ?? "";
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
         /// <inheritdoc />
@@ -53,7 +52,7 @@ namespace Discord.WebSocket
         /// <inheritdoc />
         public IReadOnlyCollection<IActivity> Activities => Presence.Activities ?? ImmutableList<IActivity>.Empty;
 
-        public abstract Optional<string> GlobalName { get; internal set; }
+        public abstract string GlobalName { get; internal set; }
 
         /// <summary>
         ///     Gets mutual guilds shared with this user.
@@ -78,9 +77,9 @@ namespace Discord.WebSocket
                 hasChanges = true;
             }
 
-            if (model.Discriminator.GetValueOrDefault() != RawDiscriminator.GetValueOrDefault())
+            if (model.Discriminator.IsSpecified && model.Discriminator.Value != RawDiscriminator)
             {
-                RawDiscriminator = model.Discriminator;
+                RawDiscriminator = model.Discriminator.Value;
                 hasChanges = true;
             }
 
@@ -100,9 +99,9 @@ namespace Discord.WebSocket
                 hasChanges = true;
             }
 
-            if (model.GlobalName.GetValueOrDefault() != GlobalName.GetValueOrDefault())
+            if (model.GlobalName.IsSpecified && model.GlobalName.Value != GlobalName)
             {
-                GlobalName = model.GlobalName;
+                GlobalName = model.GlobalName.Value;
                 hasChanges = true;
             }
 

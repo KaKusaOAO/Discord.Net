@@ -21,14 +21,13 @@ namespace Discord.Rest
         /// <inheritdoc />
         public string Username { get; private set; }
 
-        public Optional<string> RawDiscriminator { get; private set; }
+        public string RawDiscriminator { get; private set; }
 
-        public virtual string DisplayName =>
-            GlobalName.GetValueOrDefault(Username);
+        public virtual string DisplayName => GlobalName ?? Username;
 
         /// <inheritdoc />
-        public ushort DiscriminatorValue => RawDiscriminator.IsSpecified
-            ? ushort.Parse(RawDiscriminator.Value, CultureInfo.InvariantCulture)
+        public ushort DiscriminatorValue => RawDiscriminator != null
+            ? ushort.Parse(RawDiscriminator, CultureInfo.InvariantCulture)
             : (ushort) 10000;
 
         /// <inheritdoc />
@@ -43,8 +42,7 @@ namespace Discord.Rest
         /// <inheritdoc />
         public DateTimeOffset CreatedAt => SnowflakeUtils.FromSnowflake(Id);
         /// <inheritdoc />
-        public string Discriminator => RawDiscriminator.IsSpecified ?
-            RawDiscriminator.Value : "";
+        public string Discriminator => RawDiscriminator ?? "";
 
         /// <inheritdoc />
         public string Mention => MentionUtils.MentionUser(Id);
@@ -95,17 +93,16 @@ namespace Discord.Rest
                 BannerId = model.Banner.Value;
             if (model.AccentColor.IsSpecified)
                 AccentColor = model.AccentColor.Value;
-
-            RawDiscriminator = model.Discriminator;
-
+            if (model.Discriminator.IsSpecified)
+                RawDiscriminator = model.Discriminator.Value;
             if (model.Bot.IsSpecified)
                 IsBot = model.Bot.Value;
             if (model.Username.IsSpecified)
                 Username = model.Username.Value;
             if (model.PublicFlags.IsSpecified)
                 PublicFlags = model.PublicFlags.Value;
-
-            GlobalName = model.GlobalName;
+            if (model.GlobalName.IsSpecified)
+                GlobalName = model.GlobalName.Value;
         }
 
         /// <inheritdoc />
@@ -124,7 +121,7 @@ namespace Discord.Rest
         /// </returns>
         public Task<RestDMChannel> CreateDMChannelAsync(RequestOptions options = null)
             => UserHelper.CreateDMChannelAsync(this, Discord, options);
-        public Optional<string> GlobalName { get; internal set; }
+        public string GlobalName { get; internal set; }
 
         /// <inheritdoc />
         public string GetAvatarUrl(ImageFormat format = ImageFormat.Auto, ushort size = 128)

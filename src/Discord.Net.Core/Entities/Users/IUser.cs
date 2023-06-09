@@ -46,7 +46,7 @@ namespace Discord
         ///     A string representing the user's avatar URL.
         /// </returns>
         string GetDefaultAvatarUrl();
-        Optional<string> RawDiscriminator { get; }
+        string RawDiscriminator { get; }
         /// <summary>
         ///     Gets the per-username unique ID for this user.
         /// </summary>
@@ -123,6 +123,6 @@ namespace Discord
         /// </returns>
         string DisplayName { get; }
 
-        public Optional<string> GlobalName { get; }
+        string GlobalName { get; }
     }
 }

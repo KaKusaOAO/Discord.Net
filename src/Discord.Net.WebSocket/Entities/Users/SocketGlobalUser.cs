@@ -11,9 +11,9 @@ namespace Discord.WebSocket
         public override bool IsBot { get; internal set; }
         public override string Username { get; internal set; }
         public override string AvatarId { get; internal set; }
-        public override Optional<string> RawDiscriminator { get; internal set; }
+        public override string RawDiscriminator { get; internal set; }
         internal override SocketPresence Presence { get; set; }
-        public override Optional<string> GlobalName { get; internal set; }
+        public override string GlobalName { get; internal set; }
 
         public override bool IsWebhook => false;
         internal override SocketGlobalUser GlobalUser { get => this; set => throw new NotImplementedException(); }

@@ -19,8 +19,9 @@ namespace Discord.Rest
         private long? _timedOutTicks;
         private long? _joinedAtTicks;
         private ImmutableArray<ulong> _roleIds;
+
         /// <inheritdoc />
-        public override string DisplayName => Nickname ?? GlobalName.GetValueOrDefault(Username);
+        public override string DisplayName => Nickname ?? GlobalName ?? Username;
         /// <inheritdoc />
         public string Nickname { get; private set; }
         /// <inheritdoc/>

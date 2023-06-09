@@ -15,7 +15,7 @@ public static class UsernameUpdateExtension
         ValidateUsername(user.Username);
 
     public static bool HasLegacyUsername(this IUser user) =>
-        user.RawDiscriminator.IsSpecified && user.RawDiscriminator.Value != "0";
+        user.RawDiscriminator != null && user.RawDiscriminator != "0";
 
     public static bool HasUniqueUsername(this IUser user) => !user.HasLegacyUsername();
 }
