@@ -1492,7 +1492,8 @@ namespace Discord.API
 
         public async Task<Message> CreateInteractionFollowupMessageAsync(UploadWebhookFileParams args, string token, RequestOptions options = null)
         {
-            if ((!args.Embeds.IsSpecified || args.Embeds.Value == null || args.Embeds.Value.Length == 0)
+            if ((args.Files == null || args.Files.Length == 0)
+                && (!args.Embeds.IsSpecified || args.Embeds.Value == null || args.Embeds.Value.Length == 0)
                 && (!args.Content.IsSpecified || args.Content.Value is null || string.IsNullOrWhiteSpace(args.Content.Value))
                 && (!args.MessageComponents.IsSpecified || args.MessageComponents.Value is null || args.MessageComponents.Value.Length == 0))
             {
