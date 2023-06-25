@@ -67,13 +67,13 @@ namespace Discord.WebSocket
 
         /// <inheritdoc />
         public override string Discriminator {
-            get => GlobalUser.Discriminator;
-            internal set => GlobalUser.Discriminator = value;
+            get => GuildUser.Discriminator;
+            internal set => GuildUser.Discriminator = value;
         }
 
         public override string GlobalName {
-            get => GlobalUser.GlobalName;
-            internal set => GlobalUser.GlobalName = value;
+            get => GuildUser.GlobalName;
+            internal set => GuildUser.GlobalName = value;
         }
 
         /// <inheritdoc/>
@@ -82,6 +82,14 @@ namespace Discord.WebSocket
             get => GuildUser.IsBot;
             internal set => GuildUser.IsBot = value;
         }
+
+
+        public override bool IsSystem
+        {
+            get => GuildUser.IsSystem;
+            internal set => GuildUser.IsSystem = value;
+        }
+
 
         /// <inheritdoc/>
         public override bool IsWebhook

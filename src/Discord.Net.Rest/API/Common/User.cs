@@ -12,6 +12,8 @@ namespace Discord.API
         public Optional<string> Discriminator { get; set; }
         [JsonProperty("bot")]
         public Optional<bool> Bot { get; set; }
+        [JsonProperty("system")]
+        public Optional<bool> System { get; set; }
         [JsonProperty("avatar")]
         public Optional<string> Avatar { get; set; }
         [JsonProperty("banner")]

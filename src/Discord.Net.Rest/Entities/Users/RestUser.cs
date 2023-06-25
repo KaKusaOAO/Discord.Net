@@ -18,6 +18,7 @@ namespace Discord.Rest
         #region RestUser
         /// <inheritdoc />
         public bool IsBot { get; private set; }
+        public bool IsSystem { get; private set; }
         /// <inheritdoc />
         public string Username { get; private set; }
 
@@ -95,6 +96,8 @@ namespace Discord.Rest
                 Discriminator = model.Discriminator.Value;
             if (model.Bot.IsSpecified)
                 IsBot = model.Bot.Value;
+            if (model.System.IsSpecified)
+                IsSystem = model.System.Value;
             if (model.Username.IsSpecified)
                 Username = model.Username.Value;
             if (model.PublicFlags.IsSpecified)

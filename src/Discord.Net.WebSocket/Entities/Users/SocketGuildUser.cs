@@ -39,6 +39,12 @@ namespace Discord.WebSocket
         public string GuildAvatarId { get; private set; }
         /// <inheritdoc />
         public override bool IsBot { get { return GlobalUser.IsBot; } internal set { GlobalUser.IsBot = value; } }
+        public override bool IsSystem
+        {
+            get => GlobalUser.IsSystem;
+            internal set => GlobalUser.IsSystem = value;
+        }
+
         /// <inheritdoc />
         public override string Username { get { return GlobalUser.Username; } internal set { GlobalUser.Username = value; } }
 

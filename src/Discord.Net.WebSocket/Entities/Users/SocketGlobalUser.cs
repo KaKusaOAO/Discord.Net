@@ -9,6 +9,7 @@ namespace Discord.WebSocket
     internal class SocketGlobalUser : SocketUser
     {
         public override bool IsBot { get; internal set; }
+        public override bool IsSystem { get; internal set; }
         public override string Username { get; internal set; }
         public override string AvatarId { get; internal set; }
         public override string Discriminator { get; internal set; }

@@ -68,6 +68,7 @@ namespace Discord
         ///     <c>true</c> if the user is a bot application; otherwise <c>false</c>.
         /// </returns>
         bool IsBot { get; }
+        bool IsSystem { get; }
         /// <summary>
         ///     Gets a value that indicates whether this user is a webhook user.
         /// </summary>

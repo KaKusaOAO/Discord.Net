@@ -19,6 +19,7 @@ namespace Discord.WebSocket
     {
         /// <inheritdoc />
         public abstract bool IsBot { get; internal set; }
+        public abstract bool IsSystem { get; internal set; }
         /// <inheritdoc />
         public abstract string Username { get; internal set; }
         public virtual string DisplayName => GlobalName ?? Username;
@@ -79,10 +80,14 @@ namespace Discord.WebSocket
                 Discriminator = model.Discriminator.Value;
                 hasChanges = true;
             }
-
             if (model.Bot.IsSpecified && model.Bot.Value != IsBot)
             {
                 IsBot = model.Bot.Value;
+                hasChanges = true;
+            }
+            if (model.System.IsSpecified && model.System.Value != IsSystem)
+            {
+                IsSystem = model.System.Value;
                 hasChanges = true;
             }
             if (model.Username.IsSpecified && model.Username.Value != Username)
